@@ -5,10 +5,16 @@ export default function Clicker() {
     parseInt(localStorage.getItem("count") ?? 0),
   );
 
-  useEffect(() => localStorage.setItem("count", count), [count]);
+  useEffect(() => {
+    return () => {
+      localStorage.removeItem("count");
+    };
+  }, []);
+  //useEffect(() => localStorage.setItem("count", count), [count]);
 
   const buttonClick = () => {
     setCount(count + 1);
+    localStorage.setItem("count", count);
   };
   return (
     <>
